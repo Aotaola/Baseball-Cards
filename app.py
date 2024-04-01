@@ -32,6 +32,8 @@ class Cards(db.Model):
     player = db.Column(db.String, nullable=False)
     image = db.Column(db.BLOB)#blob stands for binary large object
     collection_id = db.Column(db.Integer, db.ForeignKey('collection.id') )
+
+
 @app.route('/')
 
 def hello():

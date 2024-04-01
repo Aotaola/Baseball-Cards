@@ -19,20 +19,28 @@ class User(db.Model):
     def check_password(self, password):
         return bcrypt.check_password_hash(self.password_hash, password)
     bio = db.Column(db.Text)
+    tokens = db.Column(db.Float)
 
 class Collection(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     collection_name = db.Column(db.String, nullable=False)
     collection_description = db.Column(db.Text)
     user_id = db.Column(db.Integer, db.ForeingKey('user.id'))
+    collection_tokens = db.Column(db.Float)
     
-class Cards(db.Model):
+class Card(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     popularity = db.Column(db.Integer, nullable=False)
+    price = db.Column(db.Float, nullable=False)
     player = db.Column(db.String, nullable=False)
     image = db.Column(db.BLOB)#blob stands for binary large object
     collection_id = db.Column(db.Integer, db.ForeignKey('collection.id') )
 
+class Review(db.Model):
+    id = db.Column(db.Integer, primary_key=True) 
+    body = db.Column(db.String, nullable=False)
+    card_id = db.Column(db.Integer, db.ForeignKey('card.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 @app.route('/')
 

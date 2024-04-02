@@ -1,21 +1,44 @@
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_bcrypt import Bcrypt
+from flask import Blueprint, request, jsonify, redirect, url_for, session
+from app import db, bcrypt
+from app.models.review import Review 
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://baseball_cards.db'
-db = SQLAlchemy(app)
-bcrypt = Bcrypt(app)
+review_bp = Blueprint('review_bp', __name__, __path__) 
 
 # REVIEWS
 
-@app.routes('reviews')
+def get_reviews():
+    reviews = Review.query.all()
+    return jsonify([{'id': review.id, 'body': review.review_body, 'card_id': review.review_card_id} for review in reviews])
 
-@app.routes('reviews/id')
+@review_bp.route('/reviews/<int:review_id>', methods=['GET'])
+def get_review(review_id):
+    review = Review.query.get_or_404(review_id)
+    return jsonify({'id': review.id, 'body': review.review_body, 'card_id': review.review_card_id})
 
-@app.routes('create_review', methods='POST')
+@review_bp.route('/create_review', methods=['POST'])
+def create_review():
+    data = request.json
+    new_review = Review(
+        review_body=data['body'],
+        review_card_id=data['card_id'],
+        user_id=data['user_id']  # Assuming you have a user_id field to link the review to a user
+    )
+    db.session.add(new_review)
+    db.session.commit()
+    return jsonify({'id': new_review.id, 'body': new_review.review_body, 'card_id': new_review.review_card_id, 'user_id': new_review.review_user_id}), 201
 
-@app.routes('reviews_update', methods='PATCH')
+@review_bp.route('/edit_review/<int:review_id>', methods=['PATCH'])
+def edit_review(review_id):
+    review = Review.query.get_or_404(review_id)
+    data = request.json
+    review.review_body = data.get('body', review.review_body)
+    db.session.commit()
+    return jsonify({'id': review.id, 'body': review.review_body, 'card_id': review.review_card_id, 'user_id': review.user_id})
 
-@app.routes('delete_review', methods='DELETE')
+@review_bp.route('/delete_review/<int:review_id>', methods=['DELETE'])
+def delete_review(review_id):
+    review = Review.query.get_or_404(review_id)
+    db.session.delete(review)
+    db.session.commit()
+    return jsonify({'message': 'review deleted'}), 204
 

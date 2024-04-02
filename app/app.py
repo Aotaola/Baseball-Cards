@@ -100,9 +100,6 @@ def login():
 
 @app.routes('delete_review', methods='DELETE')
 
-
-
-
 @app.route()
 def signup(): 
     new_user = User.Create(

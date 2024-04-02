@@ -47,5 +47,67 @@ class Review(db.Model):
 def hello():
     return "hello world"
 
+# USER ROUTES
+@app.route('/login')
+
+def login():
+    if 'username' == User.username & 'password' == User.password:
+        return User
+    else:
+        return app.route('/login')
+    
+@app.route('/signup')
+
+@app.route('/logout')
+
+@app.route('/update_user', methods='PATCH')
+
+@app.route('/delete_user', methods='DELETE')
+
+# COLLECTION ROUTES
+
+@app.route('/collections')
+
+@app.route('/collections/id')
+
+@app.route('/create_collection', methods='POST')
+
+@app.route('/edit_collection', methods='PATCH')
+
+@app.route('delete_collection', methods='DELETE')
+
+# CARDS ROUTES
+
+@app.route('/cards')
+
+@app.route('cards/id')
+
+@app.route('create_card', methods='POST')
+
+@app.route('add_card', methods = 'PATCH')
+
+@app.route('delete_card', methods='DELETE')
+
+# REVIEWS
+
+@app.routes('reviews')
+
+@app.routes('reviews/id')
+
+@app.routes('create_review', methods='POST')
+
+@app.routes('reviews_update', methods='PATCH')
+
+@app.routes('delete_review', methods='DELETE')
+
+
+
+
+@app.route()
+def signup(): 
+    new_user = User.Create(
+
+    )
+
 if __name__ == '__main__':
     app.run(debug=True)

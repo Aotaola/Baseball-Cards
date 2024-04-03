@@ -1,6 +1,6 @@
 from flask import Flask
-from flask_bcrypt import Bcrypt
-from utils.database import db
+from app.extensions import Bcrypt
+from app.utils.database import db
 
 
 app = Flask(__name__)
@@ -14,3 +14,12 @@ class Card(db.Model):
     player = db.Column(db.String, nullable=False)
     image = db.Column(db.BLOB)#blob stands for binary large object
     collection_id = db.Column(db.Integer, db.ForeignKey('collection.id') )
+    gas_tax = db.Column(db.Float, default=0.1)
+
+    def __init__(self) -> None:
+        super(Card, self).__init__(*args, **kwargs)
+        self.apply_gas_tax()
+
+    def apply_gas_tax(self):
+        tax_amount = self.value * self.gas_tax
+        self.collection.value -= tax_amount

@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_bcrypt import Bcrypt
-from utils.database import db
+from app.utils.database import db
 
 
 app = Flask(__name__)
@@ -12,6 +12,9 @@ class User(db.Model):
     username = db.Column(db.String, nullable=False)
     email = db.Column(db.String, nullable=False)
     password_hash = db.Column(db.String(60))
+    collections = db.relationship('Collection', backref='owner', lazy='True')
+
+
     def set_password(self, password):
         self.password_hash = bcrypt.generate_password_hash(password).decode('utf8')
 
@@ -20,3 +23,8 @@ class User(db.Model):
     bio = db.Column(db.Text)
     tokens = db.Column(db.Float)
 
+    #token value
+
+    def total_value(self):
+        return sum(collection.value for collection in self.collection)
+    

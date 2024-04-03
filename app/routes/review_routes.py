@@ -1,11 +1,13 @@
 from flask import Blueprint, request, jsonify, redirect, url_for, session
-from app import db, bcrypt
+from app.utils.database import db
+#bcrypt
 from app.models.review import Review 
 
-review_bp = Blueprint('review_bp', __name__, __path__) 
+review_bp = Blueprint('review_bp', __name__) 
 
 # REVIEWS
 
+@review_bp.route('/reviews', methods=['GET'])
 def get_reviews():
     reviews = Review.query.all()
     return jsonify([{'id': review.id, 'body': review.review_body, 'card_id': review.review_card_id} for review in reviews])

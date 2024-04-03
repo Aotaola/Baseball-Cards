@@ -1,12 +1,11 @@
 from flask import Flask
-from utils.database import db
-
+from app.utils.database import db
+from app.extensions import bcrypt
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///baseball_cards.db'
 
 db.init_app(app)
-
 
 # Import models
 from app.models.user import User

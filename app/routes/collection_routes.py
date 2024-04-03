@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify, redirect, url_for, session
-from app import db, bcrypt
+from app.utils.database import db
+#from app.extensions import bcrypt
 from app.models.collection import Collection 
 
 collection_bp = Blueprint('collection_bp', __name__)

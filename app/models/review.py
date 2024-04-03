@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_bcrypt import Bcrypt
-from utils.database import db
+from app.utils.database import db
 
 
 app = Flask(__name__)

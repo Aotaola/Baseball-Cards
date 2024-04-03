@@ -1,5 +1,6 @@
-from flask import Blueprint, request, jsonify, redirect, url_for, session
-from app import db, bcrypt
+from flask import Blueprint, request, jsonify, session
+from app.utils.database import db
+from app.extensions import bcrypt
 from app.models.user import User 
 
 user_bp = Blueprint('user_bp', __name__)
@@ -15,7 +16,7 @@ def login():
         return jsonify({'message': 'Invalid username or password'}), 401
 
 
-@user_bp.route('/signup')
+@user_bp.route('/signup', methods=['POST'])
 
 def signup():
     data = request.json

@@ -1,11 +1,12 @@
-from flask import Blueprint, request, jsonify, redirect, url_for, session
-from app import db
+from flask import Blueprint, request, jsonify
+from app.utils.database import db
 from app.models.card import Card 
 
 card_bp = Blueprint('card_bp', __name__)
 
 # CARDS ROUTES
 
+@card_bp.route('/cards', methods=['GET'])
 def get_cards():
     cards = Card.query.all()
     return jsonify([{'id': card.id, 'popularity': card.card_popularity, 'price': card.card_price, 'player': card.card_player, 'image': card.card_image, 'collection_id': card.card_collection_id} for card in cards])
@@ -26,6 +27,7 @@ def create_card():
     db.session.add(new_card)
     db.session.commit()
     return jsonify({'id': new_card.id, 'popularity': new_card.card_popularity, 'price': new_card.card_price, 'player': new_card.card_player, 'image': new_card.card_image, 'collection_id': new_card.card_collection_id})
+
 @card_bp.route('/edit_card/<int:card_id>', methods=['PATCH'])
 def edit_card(card_id):
     card = Card.query.get_or_404(card_id)

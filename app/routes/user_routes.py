@@ -38,7 +38,7 @@ def logout():
     session.pop('session', None)
     return jsonify({'message': 'Logged out successfully'})
 
-@user_bp.route('/update_user', methods='PATCH')
+@user_bp.route('/update_user/<int:user_id>', methods=['PATCH'])
 
 def update_user(user_id):
     user = User.query.get_or_404(user_id)
@@ -50,7 +50,7 @@ def update_user(user_id):
     return jsonify({'message': 'User updated successfully'})
 
 
-@user_bp.route('/delete_user', methods='DELETE')
+@user_bp.route('/delete_user/<int:user_id>', methods=['DELETE'])
 
 def delete_user(user_id):
     user = User.query.get_or_404(user_id)

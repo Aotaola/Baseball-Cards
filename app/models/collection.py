@@ -3,7 +3,7 @@ from flask_bcrypt import Bcrypt
 from app.utils.database import db
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://baseball_cards.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///baseball_cards.db'
 bcrypt = Bcrypt(app)
 
 

@@ -15,7 +15,7 @@ def get_collection(collection_id):
     collection = Collection.query.get_or_404(collection_id)
     return jsonify({'id': collection.id, 'name': collection.collection_name, 'description': collection.collection_description, 'tokens': collection.collection_tokens})
 
-@collection_bp.route('/create_collection', methods='POST')
+@collection_bp.route('/create_collection', methods=['POST'])
 def create_collection():
     data = request.json
     new_collection = Collection(

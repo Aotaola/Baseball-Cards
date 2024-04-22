@@ -18,12 +18,14 @@ with app.app_context():
     db.create_all()
 
 # import blueprints
+from app.routes.home_route import home_bp
 from app.routes.user_routes import user_bp
 from app.routes.collection_routes import collection_bp
 from app.routes.card_routes import card_bp
 from app.routes.review_routes import review_bp
 
 #register blueprints
+app.register_blueprint(home_bp, url_prefix='/home')
 app.register_blueprint(user_bp, url_prefix='/users')
 app.register_blueprint(collection_bp, url_prefix='/collections')
 app.register_blueprint(card_bp, url_prefix='/cards')

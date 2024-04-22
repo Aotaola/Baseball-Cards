@@ -14,12 +14,12 @@ class Card(db.Model):
     player = db.Column(db.String, nullable=False)
     image = db.Column(db.BLOB)#blob stands for binary large object
     collection_id = db.Column(db.Integer, db.ForeignKey('collection.id') )
-    gas_tax = db.Column(db.Float, default=0.1)
+    # gas_tax = db.Column(db.Float, default=0.05)
 
-    def __init__(self) -> None:
-        super(Card, self).__init__(*args, **kwargs)
-        self.apply_gas_tax()
+    # def __init__(self) -> None:
+    #     super(Card, self).__init__(*args, **kwargs)
+    #     self.apply_gas_tax()
 
-    def apply_gas_tax(self):
-        tax_amount = self.value * self.gas_tax
-        self.collection.value -= tax_amount
+    # def apply_gas_tax(self):
+    #     tax_amount = self.value * self.gas_tax
+    #     self.collection.value -= tax_amount

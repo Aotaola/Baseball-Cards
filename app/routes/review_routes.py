@@ -7,12 +7,12 @@ review_bp = Blueprint('review_bp', __name__)
 
 # REVIEWS
 
-@review_bp.route('/reviews', methods=['GET'])
+@review_bp.route('/all_reviews', methods=['GET'])
 def get_reviews():
     reviews = Review.query.all()
     return jsonify([{'id': review.id, 'body': review.review_body, 'card_id': review.review_card_id} for review in reviews])
 
-@review_bp.route('/reviews/<int:review_id>', methods=['GET'])
+@review_bp.route('/all_reviews/<int:review_id>', methods=['GET'])
 def get_review(review_id):
     review = Review.query.get_or_404(review_id)
     return jsonify({'id': review.id, 'body': review.review_body, 'card_id': review.review_card_id})
@@ -23,7 +23,7 @@ def create_review():
     new_review = Review(
         review_body=data['body'],
         review_card_id=data['card_id'],
-        user_id=data['user_id']  # Assuming you have a user_id field to link the review to a user
+        user_id=data['user_id']  
     )
     db.session.add(new_review)
     db.session.commit()

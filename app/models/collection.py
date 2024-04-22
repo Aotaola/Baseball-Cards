@@ -13,8 +13,10 @@ class Collection(db.Model):
     collection_description = db.Column(db.Text)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     collection_tokens = db.Column(db.Float)
-    cards = db.relationship('Card', backref='collection', lazy=True)
+    cards = db.relationship('Card', backref='collection', lazy='select')
 
     def value(self):
-        return sum(card.value for card in self.cards)
+        total_value =  sum(card.value for card in self.cards)
+        self.collection_tokens = total_value
+        return total_value
     

@@ -6,7 +6,7 @@ card_bp = Blueprint('card_bp', __name__)
 
 # CARDS ROUTES
 
-@card_bp.route('/cards', methods=['GET'])
+@card_bp.route('/all_cards', methods=['GET'])
 def get_cards():
     cards = Card.query.all()
     return jsonify([{'id': card.id, 'popularity': card.card_popularity, 'price': card.card_price, 'player': card.card_player, 'image': card.card_image, 'collection_id': card.card_collection_id} for card in cards])

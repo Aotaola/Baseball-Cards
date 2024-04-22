@@ -5,7 +5,12 @@ from app.models.user import User
 
 user_bp = Blueprint('user_bp', __name__)
 
-@user_bp.route('/login', methods=['GET'])
+@user_bp.route('/profile', methods=['GET'])
+def profile(user_id):
+    user = User.query.filter_by(id=user_id).first()
+    return user
+
+@user_bp.route('/login', methods=['POST'])
 
 def login():
     data = request.json

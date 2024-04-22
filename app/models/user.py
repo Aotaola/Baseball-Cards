@@ -12,7 +12,7 @@ class User(db.Model):
     username = db.Column(db.String, nullable=False)
     email = db.Column(db.String, nullable=False)
     password_hash = db.Column(db.String(60))
-    collections = db.relationship('Collection', backref='owner', lazy='True')
+    collections = db.relationship('Collection', backref='owner', lazy='select')
 
 
     def set_password(self, password):
@@ -26,5 +26,8 @@ class User(db.Model):
     #token value
 
     def total_value(self):
-        return sum(collection.value for collection in self.collection)
+        collection_value = sum(collection.value for collection in self.collection)
+        self.tokens += collection_value
+        return self.tokens
+
     

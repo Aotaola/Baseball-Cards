@@ -5,12 +5,12 @@ from app.models.collection import Collection
 
 collection_bp = Blueprint('collection_bp', __name__)
 
-@collection_bp.route('/collections', methods=['GET'])
+@collection_bp.route('/all_collections', methods=['GET'])
 def get_collections():
     collections = Collection.query.all()
     return jsonify([{'id': collection.id, 'name': collection.collection_name, 'description': collection.collection_description} for collection in collections])
 
-@collection_bp.route('/collections/<int:collection_id>', methods=['GET'])
+@collection_bp.route('/all_collections/<int:collection_id>', methods=['GET'])
 def get_collection(collection_id):
     collection = Collection.query.get_or_404(collection_id)
     return jsonify({'id': collection.id, 'name': collection.collection_name, 'description': collection.collection_description, 'tokens': collection.collection_tokens})
@@ -21,7 +21,7 @@ def create_collection():
     new_collection = Collection(
         collection_name=data['name'],
         collection_description=data['description'],
-        user_id=data['user_id']  # Assuming you have a user_id field to link the collection to a user
+        user_id=data['user_id']  
     )
     db.session.add(new_collection)
     db.session.commit()

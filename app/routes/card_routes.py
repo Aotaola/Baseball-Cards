@@ -1,8 +1,10 @@
 from flask import Blueprint, request, jsonify
 from app.utils.database import db
 from app.models.card import Card 
+from flask_cors import CORS
 
 card_bp = Blueprint('card_bp', __name__)
+CORS(card_bp)
 
 # CARDS ROUTES
 

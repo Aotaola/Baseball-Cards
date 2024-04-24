@@ -2,8 +2,10 @@ from flask import Blueprint, request, jsonify, redirect, url_for, session
 from app.utils.database import db
 #bcrypt
 from app.models.review import Review 
+from flask_cors import CORS
 
 review_bp = Blueprint('review_bp', __name__) 
+CORS(review_bp)
 
 # REVIEWS
 

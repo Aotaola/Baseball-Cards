@@ -1,16 +1,15 @@
 import React from "react";
-import CollectionContainer from "../components/Collections";
+import tekken_card_logo from '../assets/tekken_card_logo.png';
+import CollectionContainer from '../components/CollectionContainer';
 
 const Home = () => {
-    return(
-        <div className="Home">
-            <span className="home-title">Card Trade</span>
-            <div>
-                <h2 className="home-subtitle">Card Trade subtitle</h2>
-            </div>
-            <CollectionContainer/>
+    return (
+        <div>
+            <header className="App-header">
+                <img src={tekken_card_logo} className="App-logo" alt="logo" />
+            </header>
         </div>
-    )
+      );
 }
-
+ 
 export default Home;

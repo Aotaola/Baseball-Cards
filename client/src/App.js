@@ -7,7 +7,7 @@ import Home from './pages/Home.jsx';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from './authFile/AuthContext.js'
 import './App.css';
-import CollectionView from './components/CollectionView.jsx';
+import CollectionView from './pages/CollectionView.jsx';
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
       <BrowserRouter>
         <div className="App">
             <NavBar/>
-            <header className="App-header">
+            <header className='App-header'>
           <Routes>
             <Route path="/" element={<Home/>} />
             <Route path="/profile" element={<ProfileView/>}/>

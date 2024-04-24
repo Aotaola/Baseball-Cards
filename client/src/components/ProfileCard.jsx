@@ -38,7 +38,7 @@ const ProfileCard = () => {
             <p>{user.email}</p>
             <p>{user.tokens}</p>
             <p>{user.bio}</p>
-            <button>Edit profile</button>
+            
         </div>
       );
 }

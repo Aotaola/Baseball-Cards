@@ -1,11 +1,13 @@
 import React from "react";
-import CardsCard from "./CardsCard";
+import FullCard from "./FullCard.jsx"
 
 const CardContainer = () => {
+
+    
     return (
         <div className="CardContainer">
-            <h1>this is a card container</h1>
-            <CardsCard/>
+            <p>cardcontainer</p>
+            <FullCard/>
         </div>
       );
 }

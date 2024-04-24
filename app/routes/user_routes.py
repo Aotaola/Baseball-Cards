@@ -13,13 +13,12 @@ def get_users():
     return jsonify([{'id': user.id, 'username': user.username, 'email': user.email, 'password': user.password_hash, 'collections': user.collections} for user in users])
 
 
-@user_bp.route('/profile', methods=['GET'])
+@user_bp.route('/user/<int:user_id>', methods=['GET'])
 def profile(user_id):
     user = User.query.filter_by(id=user_id).first()
     return user
 
 @user_bp.route('/login', methods=['POST'])
-
 def login():
     data = request.json
     user = User.query.filter_by(username=data['username']).first()
@@ -28,9 +27,8 @@ def login():
     else:
         return jsonify({'message': 'Invalid username or password'}), 401
 
-
+#CREATE
 @user_bp.route('/signup', methods=['POST'])
-
 def signup():
     data = request.json
     new_user = User(
@@ -46,13 +44,12 @@ def signup():
 
 
 @user_bp.route('/logout')
-
 def logout():
     session.pop('session', None)
     return jsonify({'message': 'Logged out successfully'})
 
+#PATCH
 @user_bp.route('/update_user/<int:user_id>', methods=['PATCH'])
-
 def update_user(user_id):
     user = User.query.get_or_404(user_id)
     data = request.json
@@ -62,7 +59,7 @@ def update_user(user_id):
     db.session.commit()
     return jsonify({'message': 'User updated successfully'})
 
-
+#DELETE
 @user_bp.route('/delete_user/<int:user_id>', methods=['DELETE'])
 
 def delete_user(user_id):

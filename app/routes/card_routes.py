@@ -7,17 +7,19 @@ card_bp = Blueprint('card_bp', __name__)
 CORS(card_bp)
 
 # CARDS ROUTES
-
-@card_bp.route('/all_cards', methods=['GET'])
+#GET
+    #get all cards
+@card_bp.route('/cards', methods=['GET'])
 def get_cards():
     cards = Card.query.all()
     return jsonify([{'id': card.id, 'popularity': card.card_popularity, 'price': card.card_price, 'player': card.card_player, 'image': card.card_image, 'collection_id': card.card_collection_id} for card in cards])
-
+    #get card by id
 @card_bp.route('/cards/<int:card_id>', methods=['GET'])
 def get_card(card_id):
     card = Card.query.get_or_404(card_id)
     return jsonify({'id': card.id, 'player': card.card_player, 'image': card.card_image, 'tokens': card.card_tokens})
 
+#CREATE
 @card_bp.route('/create_card', methods=['POST'])
 def create_card():
     data = request.json
@@ -29,7 +31,7 @@ def create_card():
     db.session.add(new_card)
     db.session.commit()
     return jsonify({'id': new_card.id, 'popularity': new_card.card_popularity, 'price': new_card.card_price, 'player': new_card.card_player, 'image': new_card.card_image, 'collection_id': new_card.card_collection_id})
-
+#PATCH
 @card_bp.route('/edit_card/<int:card_id>', methods=['PATCH'])
 def edit_card(card_id):
     card = Card.query.get_or_404(card_id)
@@ -41,7 +43,7 @@ def edit_card(card_id):
     card.collection_id = data.get('collection_id', card.collection_id)
     db.session.commit()
     return jsonify({'id': card.id, 'popularity': card.card_popularity, 'price': card.card_price, 'player': card.card_player, 'image': card.card_image, 'collection_id': card.card_collection_id})
-
+#DELETE
 @card_bp.route('/delete_card/<int:card_id>', methods=['DELETE'])
 def delete_card(card_id):
     card = Card.query.get_or_404(card_id)

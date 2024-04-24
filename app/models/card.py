@@ -11,8 +11,8 @@ class Card(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     popularity = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Float, nullable=False)
-    player = db.Column(db.String(255), nullable=False)
-    image = db.Column(db.BLOB)#blob stands for binary large object
+    player = db.Column(db.String, nullable=False)
+    image = db.Column(db.TEXT)#image url
     collection_id = db.Column(db.Integer, db.ForeignKey('collection.id') )
     # gas_tax = db.Column(db.Float, default=0.05)
 

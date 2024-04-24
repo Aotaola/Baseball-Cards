@@ -1,41 +1,27 @@
-
-body, html{
-  background-color: #282c34;
-
-}
-
 .App {
   text-align: center;
+  height: 100vh;
 }
 
 .App-logo {
-  height: 10vmin;
-  padding:2%;
+  height: 40vmin;
   pointer-events: none;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(-360deg);
-  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 10s linear;
+    animation: App-logo-spin infinite 20s linear;
   }
 }
 
 .App-header {
-  background-color: #282c34;
-  height: 15vh;
+  background-color: transparent;
+  min-height: 100vh;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  align-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
 }
@@ -44,41 +30,289 @@ body, html{
   color: #61dafb;
 }
 
-.Home {
-  height: 100vh;
-  background-color: #282c34;
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-.collection-container {
-  padding: 4%;
+.NavBar {
+  background-color: #333; /* Dark background for the navbar */
+  color: white; /* White text color */
+  padding: 10px 20px; /* Padding around the content */
+  display: flex; /* Using flexbox for layout */
+  justify-content: space-between; /* Space out the navbar items */
+  align-items: center; /* Center items vertically */
+  font-family: impact, serif;
+  font-size: 1rem;
 }
 
-.CardContainer{
-  padding:2%;
-  border-width: 1px;
-  border-style: solid;
-  border-color: maroon;
-  border-radius: 4%;
-  min-height: 40vh;
-  max-width: 40vh;
+.NavBar p {
+  margin: 0; 
+  font-size: 1.2rem; 
 }
 
-.Cards {
-  padding: 2%;
+.navLink {
+  color: white; 
+  text-decoration: none; 
+  font-weight: bold; 
+  padding: 8px 15px; 
+  transition: background-color 0.3s; 
 }
-.baseball_card {
-  height: 15vh;
+
+.navLink:hover {
+  background-color: #555; 
+}
+
+.navLink-Logo {
+  font-size: 1.8rem;
+  color: #FFD700;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 15px;
+  background-color: #222;
+  border-radius: 5px;
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+.navLink-Logo:hover {
+  transform: scale(1.1);
+  background-color: #444;
 }
 
 .Footer {
+  background-color: #ffffff06;
+  color: white;
+  text-align: center;
+  padding: 1rem 0;
   position: absolute;
-  bottom: 1;
+  left: 0;
+  bottom: 0;
   width: 100%;
-  height: 6vh;
-  background-color: midnightblue;
-  color: gray;
-  display: center;
-  align-items: center;
-  align-content: center;
 }
 
+.Footer p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* PROFILE CSS */
+
+.profileView {
+  height: 100%;
+  width: 90%;
+  background-color: transparent;
+}
+
+.profile-card {
+  display: flex;
+  flex-direction: row;
+  width: auto;
+  height: 10%;
+  background-color: #222222;
+  border: 1px solid whitesmoke;
+  overflow: hidden;
+  align-items: center;
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.profile-card img {
+  width: 100%;
+  height: 2rem;
+  border-radius: 50%;
+  margin-top: -50px; 
+  border: 3px solid white; 
+}
+
+.profile-card h1 {
+  margin-top: 10px;
+  font-size: 20px;
+  color: #333;
+}
+
+.profile-card h2 {
+  font-size: 16px;
+  color: #555;
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+.profile-org {
+  margin-top: 1.25rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0.625rem;
+  border-top: 0.0625rem solid #ccc;
+}
+
+/* SETTINGS TABLE */
+
+.settingsBtn {
+  background-color: #007BFF;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.settingBtn:hover {
+  background-color: #0056b3;
+}
+
+.profile-settings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  font-size: 1rem;
+}
+
+.profile-edit-table {
+  width: 100%;
+  border-collapse: collapse; /* Ensures borders between cells are merged */
+  margin-top: 1rem;
+}
+
+.profile-edit-table th {
+  text-align: left;
+  padding: 0.5rem;
+  border-bottom: 0.0625rem solid #ccc; /* Adds a subtle line under each header */
+}
+
+.profile-edit-table input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.5rem; /* Adds space above the input fields */
+  box-sizing: border-box; /* Ensures padding does not affect the overall width */
+}
+
+/* PROFILE CSS */
+
+.collectionView {
+  background-color: #110e2a;;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin: 1rem;
+  height: 100%;
+  display: flex;
+  flex-direction: grid;
+}
+
+.CollectionContainer {
+  background-color: #222222;
+  padding: 1rem;
+  border-style: solid;
+  margin: 1rem;
+}
+
+/* SIGNUP CSS */
+.SignupView {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.LoginSignupContainer {
+  align-self: center;
+  width: 20%;
+  padding: 6rem;
+  margin: 10rem;
+  background-color: #bbbbbb;
+  border: 1px solid #ccc;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.signup-label {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.signup-input {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.login-btn {
+  padding: .5rem;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-btn:hover {
+  background-color: #45a049;
+}
+
+
+/* backgrountAnimation */
+body {
+	background: radial-gradient(ellipse at center, rgba(0, 12, 103, 0.6) 0%,
+  rgba(0, 0, 0, 0.642) 60%, 
+  rgba(0,0,0,1) 90%), 
+  url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/31787/stars.jpg);
+	background-size: cover;
+	z-index:-5;
+	color: white;
+	overflow: hidden;
+	font-family: 'Impact', sans-serif;
+	font-size: 2rem;
+}
+
+h1 {
+	animation: neon1 2.5s ease-in-out infinite alternate;
+}
+
+#overlay {
+	position: absolute;
+	right: 0;
+	left: 0;
+	margin: auto;
+	width: 100%;
+	text-align: center;
+}
+
+@keyframes neon1 {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #8011ff, 0 0 70px #ff1111, 0 0 80px #8011ff, 0 0 100px #8011ff, 0 0 150px #8011ff;
+  }
+  to {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #11d7ff, 0 0 35px #11d7ff, 0 0 40px #11d7ff, 0 0 50px #11d7ff, 0 0 75px #11d7ff;
+  }
+}
+
+@keyframes layerupanim
+{
+	from {
+		height: 140px;
+	}
+	to {
+		height: 155px;
+	}
+}
+
+@keyframes layercorneranim
+{
+	from {
+		height: 400px;
+	}
+	to {
+		height: 540px;
+	}
+}

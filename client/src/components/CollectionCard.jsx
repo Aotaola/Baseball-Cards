@@ -1,11 +1,15 @@
-import React from 'react';
-import CardContainer from './CardContainer';
+import React from "react";
+import CardView from "./CardView";
 
 const CollectionCard = () => {
     return (
-        <div>
-            <h2>this holds a collection</h2>
-            <CardContainer/>
+        <div className="CollectionCard">
+            <span>
+                <p>
+                    here go the cards
+                </p>
+                <CardView/>
+            </span>
         </div>
       );
 }

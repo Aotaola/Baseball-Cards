@@ -1,9 +1,17 @@
 from flask import Blueprint, request, jsonify, session
 from app.utils.database import db
 from app.extensions import bcrypt
-from app.models.user import User 
+from app.models.user import User
+from flask_cors import CORS 
 
 user_bp = Blueprint('user_bp', __name__)
+CORS(user_bp)
+
+@user_bp.route('/all_users', methods=['GET'])
+def get_users():
+    users = User.query.all()
+    return jsonify([{'id': user.id, 'username': user.username, 'email': user.email, 'password': user.password_hash, 'collections': user.collections} for user in users])
+
 
 @user_bp.route('/user/<int:user_id>', methods=['GET'])
 def profile(user_id):

@@ -2,11 +2,12 @@ from flask import Blueprint, request, jsonify, redirect, url_for, session
 from app.utils.database import db
 #from app.extensions import bcrypt
 from app.models.collection import Collection 
+from flask_cors import CORS
 
 collection_bp = Blueprint('collection_bp', __name__)
-#GET 
-    #get all collections:
-@collection_bp.route('/collections', methods=['GET'])
+CORS(collection_bp)
+
+@collection_bp.route('/all_collections', methods=['GET'])
 def get_collections():
     collections = Collection.query.all()
     return jsonify([{'id': collection.id, 'name': collection.collection_name, 'description': collection.collection_description} for collection in collections])

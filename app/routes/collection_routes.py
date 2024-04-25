@@ -3,7 +3,7 @@ from app.utils.database import db
 #from app.extensions import bcrypt
 from app.models.collection import Collection 
 from flask_cors import CORS
-
+# This is a small comment
 collection_bp = Blueprint('collection_bp', __name__)
 CORS(collection_bp)
 

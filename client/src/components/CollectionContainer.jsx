@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../authFile/AuthContext";
 import CollectionCard from "./CollectionCard";
 
-const CollectionContainer = ({ isProfileView }) => {
+const CollectionContainer = () => {
+  
     // const [collections, setCollections] = useState([]);
     // const { isUser, userInfo } = useAuth(); 
     

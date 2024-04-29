@@ -63,14 +63,14 @@ const LoginSignupContainer = () => {
             {!account ? (
             <>
                 <div className="login-Container">
-                    <label className="signup-label">Login</label>
+                    <label className="signup-label">Jump back into the fight!</label>
                     <br/>
                     <input type="text" className="signup-input" placeholder="User name"/>
                     <input type="password" className="signup-input" placeholder="Password"/>
                     <br/>
                     <button className="login-btn" onClick={() => userLogin}>Login</button>
                 </div>
-                <p>dont have an account? </p>
+                <p>Don't have an account? </p>
                 <button className="login-btn" onClick={() => needsAccount()}>Signup!</button>
             </>
             ):(

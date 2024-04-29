@@ -4,7 +4,7 @@ import CollectionContainer from "../components/CollectionContainer";
 const CollectionView = () => {
     return (
         <div className="collectionView">
-            <h1> here are all the collections</h1>
+            <h1>All Collections</h1>
             <CollectionContainer/>
         </div>
       );

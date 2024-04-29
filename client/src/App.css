@@ -46,7 +46,7 @@
   display: flex; /* Using flexbox for layout */
   justify-content: space-between; /* Space out the navbar items */
   align-items: center; /* Center items vertically */
-  font-family: impact, serif;
+  font-family: 'OCR A Std', monospace;
   font-size: 1rem;
 }
 
@@ -102,9 +102,9 @@
 /* PROFILE CSS */
 
 .profileView {
-  height: 100%;
-  width: 90%;
-  background-color: transparent;
+  width:85%;
+  margin-bottom:10rem;
+  margin-top:1rem;
 }
 
 .profile-card {
@@ -153,18 +153,19 @@
 /* SETTINGS TABLE */
 
 .settingsBtn {
-  background-color: #007BFF;
+  background-color:#4CAF50;
   color: white;
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
+  margin:10px;
   transition: background-color 0.3s;
 }
 
 .settingBtn:hover {
-  background-color: #0056b3;
+  background-color: #45a049;
 }
 
 .profile-settings {
@@ -197,15 +198,11 @@
 /* PROFILE CSS */
 
 .collectionView {
-  background-color: #110e2a;;
-  padding-top: 3rem;
   padding-bottom: 3rem;
   padding-left: 1rem;
   padding-right: 1rem;
   margin: 1rem;
   height: 100%;
-  display: flex;
-  flex-direction: grid;
 }
 
 .CollectionContainer {
@@ -216,22 +213,20 @@
 }
 
 /* SIGNUP CSS */
-.SignupView {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
 
 .LoginSignupContainer {
   align-self: center;
-  width: 20%;
-  padding: 6rem;
-  margin: 10rem;
+  padding:3rem;
+  margin-bottom:40px;
+  margin-top:20px;
+  margin-right:20px;
+  margin-left:20px;
   background-color: #bbbbbb;
   border: 1px solid #ccc;
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
+  color:black;
 }
 
 .signup-label {
@@ -240,20 +235,24 @@
 }
 
 .signup-input {
-  padding: 8px;
+  padding:8px;
+  margin:10px;
   font-size: 14px;
   border: 1px solid #ddd;
   border-radius: 5px;
 }
 
 .login-btn {
-  padding: .5rem;
+  display:inline-block;
+  padding: 0.7rem;
   background-color: #4CAF50;
+  margin:10px;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
+  font-size:1rem;
 }
 
 .login-btn:hover {
@@ -261,7 +260,7 @@
 }
 
 
-/* backgrountAnimation */
+/* backgroundAnimation */
 body {
 	background: radial-gradient(ellipse at center, rgba(0, 12, 103, 0.6) 0%,
   rgba(0, 0, 0, 0.642) 60%, 
@@ -271,7 +270,7 @@ body {
 	z-index:-5;
 	color: white;
 	overflow: hidden;
-	font-family: 'Impact', sans-serif;
+	font-family: 'OCR A Std', monospace;
 	font-size: 2rem;
 }
 

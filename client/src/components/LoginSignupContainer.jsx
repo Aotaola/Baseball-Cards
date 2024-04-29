@@ -66,18 +66,18 @@ const LoginSignupContainer = () => {
                     <label className="signup-label">Login</label>
                     <br/>
                     <input type="text" className="signup-input" placeholder="User name"/>
+                    <br/>
                     <input type="password" className="signup-input" placeholder="Password"/>
                     <br/>
                     <button className="login-btn" onClick={() => userLogin}>Login</button>
+                    <p>Dont have an account?</p>
+                    <button className="login-btn" onClick={() => needsAccount()}>Sign Up</button>
                 </div>
-                <p>dont have an account? </p>
-                <button className="login-btn" onClick={() => needsAccount()}>Signup!</button>
             </>
             ):(
             <>
-            <button className = "login-btn" onClick={() => needsAccount()}>back to login</button>
                 <div className="signup-container">
-                    <label className="signup-label">Signup</label>
+                    <label className="signup-label">Sign Up</label>
                     <br/>
                     <input type="text" className="signup-input" placeholder="name"/>
                     <br/>
@@ -89,7 +89,7 @@ const LoginSignupContainer = () => {
                     <div>
                         <label>
                             <input type="radio" name="avatar" value="avatar1" />
-                            <img src={king} alt="Avatar 1" style={{width: '100px', height: '150px'}}/>
+                            <img src={king} alt="Avatar 1" style={{width: '100px', height: '100px'}}/>
                         </label>
                         <label>
                             <input type="radio" name="avatar" value="avatar2" />
@@ -104,7 +104,8 @@ const LoginSignupContainer = () => {
                             <img src={yoshimitsu} alt="Avatar 4" style={{width: '100px', height: '100px'}}/>
                         </label>
                     </div>
-                    <button className="login-btn">Signup</button>
+                    <button className="login-btn">Sign up</button>
+                    <button className ="login-btn" onClick={() => needsAccount()}>Cancel</button>
                 </div>
             </>
             )}

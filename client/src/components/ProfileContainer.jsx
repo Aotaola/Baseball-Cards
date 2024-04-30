@@ -22,24 +22,24 @@ const ProfileContainer = () => {
     console.log(settings)
 
     return (
-        <div className="ProfileContainer">
+        <div className='profileContainer'>
             <ProfileCard/>
             <button className="settingsBtn" onClick={() => handleSettings()}>Account</button>
             <button className="settingsBtn" onClick={() => handleLogoutWindow()}>Logout</button>
             {logoutWindow === true ?(
                 <window>
                     <div>
-                        <h3>
-                            are you sure you want to logout?
-                        </h3>
-                        <button className="logoutBtn" onClick={() => handleLogout()}>Yes, im sure</button>
-                        <button className="dontLogoutBtn" onClick={()=> handleLogoutWindow()}>no, continue my session</button>
+                        <label>
+                            Are you sure you want to logout?
+                        </label>
+                        <button className="settingsBtn" onClick={() => handleLogout()}>Yes, I'm sure</button>
+                        <button className="settingsBtn" onClick={()=> handleLogoutWindow()}>No, continue my session</button>
                     </div>
                 </window>
             ):(<></>)}
             {settings === true ? (
                 <div className="profile-settings">
-                <label> edit account information </label>
+                <label>Edit account</label>
                 <table className="profile-edit-table">
                     <thead>
                         <tr>
@@ -76,9 +76,7 @@ const ProfileContainer = () => {
                 </table>
             </div>
             ):(<></>)}
-            <div className="profile-org">
-                <CollectionContainer/>
-            </div>
+            <CollectionContainer/>
         </div>
       );
 }

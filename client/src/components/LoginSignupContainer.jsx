@@ -63,7 +63,7 @@ const LoginSignupContainer = () => {
             {!account ? (
             <>
                 <div className="login-Container">
-                    <label className="signup-label">Jump back into the fight!</label>
+                    <label className="signup-label">Login</label>
                     <br/>
                     <input type="text" className="signup-input" placeholder="User name"/>
                     <br/>

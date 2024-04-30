@@ -73,8 +73,6 @@ const LoginSignupContainer = () => {
                     <p>Dont have an account?</p>
                     <button className="login-btn" onClick={() => needsAccount()}>Sign Up</button>
                 </div>
-                <p>dont have an account? </p>
-                <button className="login-btn" onClick={() => needsAccount()}>Signup!</button>
             </>
             ):(
             <>

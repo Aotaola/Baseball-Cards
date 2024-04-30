@@ -27,20 +27,50 @@ def login():
     else:
         return jsonify({'message': 'Invalid username or password'}), 401
 
-#CREATE
+
 @user_bp.route('/signup', methods=['POST'])
 def signup():
-    data = request.json
+    content_type = request.content_type.split(';')[0].strip()
+    if content_type not in ('application/json', 'multipart/form-data'):
+        return jsonify({'error': 'Unsupported Content-Type'}), 400
+
+    if content_type == 'application/json':
+        data = request.json
+    else:
+        data = request.form.to_dict()
+
+    if not data:
+        return jsonify({'error': 'No data provided'}), 400
+
+    required_fields = ['username', 'email', 'password']  # Adjust as needed
+    for field in required_fields:
+        if field not in data or not data[field]:
+            return jsonify({'error': f'Missing or empty field: {field}'}), 400
+
     new_user = User(
         username=data['username'],
         email=data['email'],
-        bio=data['bio'],
-        tokens= 100
+        bio=data.get('bio', ''),  # Use get() to handle optional fields
+        tokens=100  # Default value for tokens, adjust as needed
     )
     new_user.set_password(data['password'])
-    db.session.add(new_user)
-    db.session.commit()
-    return jsonify({'message': 'User created successfully', 'user': {'username': new_user.username, 'email': new_user.email, 'bio': new_user.bio, 'tokens': new_user.tokens}})
+
+    try:
+        db.session.add(new_user)
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': 'Internal Server Error'}), 500
+
+    return jsonify({
+        'message': 'User created successfully',
+        'user': {
+            'username': new_user.username,
+            'email': new_user.email,
+            'bio': new_user.bio,
+            'tokens': new_user.tokens
+        }
+    }), 201  # 201 Created status code for successful creation
 
 
 @user_bp.route('/logout')

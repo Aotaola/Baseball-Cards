@@ -7,46 +7,78 @@ import king from "../assets/king.png"
 
 
 
-const LoginSignupContainer = () => {
+const LoginSignupContainer = ({ handleLoginLogout, user }) => {
      
     const [account, setAccount] = useState(false);
-    const [formData, setFormData] = useState({user_name: '', password: ''});
-    const [newUser, setNewUser] = useState([]);
-    const url = "http://54.161.219.191/"
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+    // const url = "http://54.243.7.16/"
+    const url = 'http://127.0.0.1:5000/'
     
     // switch between login and signup
     const needsAccount = () => {
         setAccount(!account);
     }
-    console.log(account);
     // creating a new user
-    const userSignup = async() => {};
-
-    console.log(newUser);
-    // authenticating user 1) handle form change, 2) handle form submission
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(name, value);
-    };
-
-    const userLogin = async(e) => {
+    const userSignup = async(e) => {
         e.preventDefault();
         try {
-            const res = await fetch(`${url}/api/users/login`, {
+            const res = await fetch(`${url}users/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    username: formData.user_name,
-                    password: formData.password
+                    username: username,
+                    password: password,
+                    email: email
                 })
             });
             const data = await res.json();
-            console.log(data); // Output the response from the server
+            if (res.ok) {
+                // Handle successful login here (e.g., redirecting user or storing authentication token)
+                console.log("User creation successful:", data);
+                handleLoginLogout(data)
+            } else {
+                // Handle errors, e.g., display a message from the server
+                console.log("User creation failed:", data.message);
+            }
+        } catch (error) {
+            console.error("Failed to fetch:", error);
+        }
+
+    };
+
+    // authenticating user 1) handle form change, 2) handle form submission
+    const handleChange = (e) => {
+        if (e.target.type === 'text') {
+            setUsername(e.target.value);
+        } else if (e.target.type === 'password') {
+            setPassword(e.target.value);
+        } else if (e.target.type === 'email') {
+            setEmail(e.target.value);
+        }
+    };
+
+    const userLogin = async(e) => {
+        e.preventDefault();
+        try {
+            const res = await fetch(`${url}users/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: password
+                })
+            });
+            const data = await res.json();
             if (res.ok) {
                 // Handle successful login here (e.g., redirecting user or storing authentication token)
                 console.log("Login successful:", data);
+                handleLoginLogout(data);
             } else {
                 // Handle errors, e.g., display a message from the server
                 console.log("Login failed:", data.message);
@@ -55,9 +87,12 @@ const LoginSignupContainer = () => {
             console.error("Failed to fetch:", error);
         }
     };
-    console.log(formData);
 
-
+    if (user) {
+        return (
+            <h1>Logged in</h1>
+        )
+    }
     return (
         <div className="LoginSignupContainer">
             {!account ? (
@@ -65,11 +100,11 @@ const LoginSignupContainer = () => {
                 <div className="login-Container">
                     <label className="signup-label">Login</label>
                     <br/>
-                    <input type="text" className="signup-input" placeholder="User name"/>
+                    <input type="text" className="signup-input" onChange={handleChange} placeholder="User name"/>
                     <br/>
-                    <input type="password" className="signup-input" placeholder="Password"/>
+                    <input type="password" className="signup-input" onChange={handleChange} placeholder="Password"/>
                     <br/>
-                    <button className="login-btn" onClick={() => userLogin}>Login</button>
+                    <button className="login-btn" onClick={userLogin}>Login</button>
                     <p>Dont have an account?</p>
                     <button className="login-btn" onClick={() => needsAccount()}>Sign Up</button>
                 </div>
@@ -79,12 +114,11 @@ const LoginSignupContainer = () => {
                 <div className="signup-container">
                     <label className="signup-label">Sign Up</label>
                     <br/>
-                    <input type="text" className="signup-input" placeholder="name"/>
+                    <input type="username" onChange={handleChange} className="signup-input" placeholder="username"/>
                     <br/>
-                    <input type="text" className="signup-input" placeholder="email"/>
+                    <input type="email" onChange={handleChange} className="signup-input" placeholder="email"/>
                     <br/>
-                    {/* <input type="text" className="signup-input" placeholder="bio"/> */}
-                    <input type="password" className="signup-input" placeholder="password"/>
+                    <input type="password" onChange={handleChange} className="signup-input" placeholder="password"/>
                     <br/>
                     <div>
                         <label>
@@ -104,7 +138,7 @@ const LoginSignupContainer = () => {
                             <img src={yoshimitsu} alt="Avatar 4" style={{width: '100px', height: '100px'}}/>
                         </label>
                     </div>
-                    <button className="login-btn">Sign up</button>
+                    <button className="login-btn" onClick={userSignup}>Sign up</button>
                     <button className ="login-btn" onClick={() => needsAccount()}>Cancel</button>
                 </div>
             </>

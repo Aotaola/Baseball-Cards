@@ -1,10 +1,11 @@
 import React from "react";
 import LoginSignupContainer from "../components/LoginSignupContainer";
 
-const Signup = () => {
+const Signup = ({ user, handleLoginLogout }) => {
+
     return (
         <div className="SignupView">
-            <LoginSignupContainer/>
+            <LoginSignupContainer user={user} handleLoginLogout={handleLoginLogout}/>
         </div>
       );
 }

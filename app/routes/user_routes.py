@@ -16,14 +16,14 @@ def get_users():
 @user_bp.route('/user/<int:user_id>', methods=['GET'])
 def profile(user_id):
     user = User.query.filter_by(id=user_id).first()
-    return user
+    return jsonify({'id': user.id, 'username': user.username, 'email': user.email}), 200
 
 @user_bp.route('/login', methods=['POST'])
 def login():
     data = request.json
     user = User.query.filter_by(username=data['username']).first()
     if user and bcrypt.check_password_hash(user.password_hash, data['password']):
-        return jsonify({'message': 'Login successful', 'user': {'username': user.username, 'email': user.email}})
+        return jsonify({'id': user.id, 'username': user.username, 'email': user.email}), 200
     else:
         return jsonify({'message': 'Invalid username or password'}), 401
 
@@ -34,13 +34,12 @@ def signup():
     new_user = User(
         username=data['username'],
         email=data['email'],
-        bio=data['bio'],
         tokens= 100
     )
     new_user.set_password(data['password'])
     db.session.add(new_user)
     db.session.commit()
-    return jsonify({'message': 'User created successfully', 'user': {'username': new_user.username, 'email': new_user.email, 'bio': new_user.bio, 'tokens': new_user.tokens}})
+    return jsonify({'id': new_user.id, 'username': new_user.username, 'email': new_user.email}), 201
 
 
 @user_bp.route('/logout')

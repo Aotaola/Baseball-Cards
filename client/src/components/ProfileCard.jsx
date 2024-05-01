@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-const ProfileCard = () => {
-    const [user, setUser] = useState({})
-    const userId = 1
-    const url = '54.161.219.191'
-
+const ProfileCard = ({ user }) => {
+     
+    // const url = "http://54.243.7.16/"
+    const url = 'http://127.0.0.1:5000/'
     useEffect(() => {
-        fetch(`http://${url}/api/users/${userId}`, {
+        fetch(`${url}users/user/${user['id']}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -20,13 +19,11 @@ const ProfileCard = () => {
         })
         .then(data => {
             console.log('Data received:', data);
-            setUser(data);
         })
         .catch(error => {
             console.error('Error fetching data:', error);
         });
     }, []);
-    console.log(user);
 
     const editUser = () => {
         
@@ -34,10 +31,7 @@ const ProfileCard = () => {
 
     return (
         <div className='profile-card'>
-            <p>{user.user_name}</p>
-            <p>{user.email}</p>
-            <p>{user.tokens}</p>
-            <p>{user.bio}</p>
+            <p>{user.username}</p>
             
         </div>
       );

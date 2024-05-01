@@ -6,10 +6,17 @@ import Signup from './pages/Signup.jsx';
 import Home from './pages/Home.jsx';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from './authFile/AuthContext.js'
+import React, { useState } from "react";
 import './App.css';
 import CollectionView from './pages/CollectionView.jsx';
 
 function App() {
+  const [user, setUser] = useState({});
+
+  function handleLoginLogout(user) {
+    setUser(user)
+  }
+
   return (
     <AuthProvider>
       <BrowserRouter>
@@ -18,8 +25,8 @@ function App() {
             <header className='App-header'>
           <Routes>
             <Route path="/" element={<Home/>} />
-            <Route path="/profile" element={<ProfileView/>}/>
-            <Route path="/signup" element={<Signup/>}/>
+            <Route path="/profile" element={<ProfileView user={user} handleLoginLogout={handleLoginLogout}/>}/>
+            <Route path="/signup" element={<Signup user={user} handleLoginLogout={handleLoginLogout}/>}/>
             <Route path="/collections" element={<CollectionView/>}/>
           </Routes>
             </header>

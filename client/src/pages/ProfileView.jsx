@@ -2,14 +2,14 @@ import React from "react";
 import ProfileContainer from "../components/ProfileContainer";
 import { useAuth } from "../authFile/AuthContext";
 
-const ProfileView = () => {
+const ProfileView = ({ user, handleLoginLogout }) => {
 
     const { userInfo } = useAuth();
     console.log(userInfo);
 
     return (
         <div className="profileView">
-            <ProfileContainer/>
+            <ProfileContainer user={user} handleLoginLogout={handleLoginLogout} />
         </div>
       );
 }

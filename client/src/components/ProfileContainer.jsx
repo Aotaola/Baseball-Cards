@@ -3,7 +3,7 @@ import CollectionContainer from "../components/CollectionContainer.jsx";
 import ProfileCard from "./ProfileCard";
 import { useAuth } from "../authFile/AuthContext.js";
 
-const ProfileContainer = () => {
+const ProfileContainer = ({ user, handleLoginLogout }) => {
     const [settings, setSettings] = useState(false);
     const [logoutWindow, setLogoutWindow] = useState(false);
     // const { userInfo } = useAuth();
@@ -16,14 +16,18 @@ const ProfileContainer = () => {
         setLogoutWindow(!logoutWindow);
     };
     const handleLogout = () => {
-        console.log("logout");
+        handleLoginLogout('');
     };
 
-    console.log(settings)
+    if (!user) {
+        return (
+            <h1>Logged out</h1>
+        )
+    }
 
     return (
         <div className='profileContainer'>
-            <ProfileCard/>
+            <ProfileCard user={user}/>
             <button className="settingsBtn" onClick={() => handleSettings()}>Account</button>
             <button className="settingsBtn" onClick={() => handleLogoutWindow()}>Logout</button>
             {logoutWindow === true ?(

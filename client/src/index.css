@@ -11,3 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face {
+  font-family: "Tarrget";
+  src: local("Tarrget"),
+    url("./fonts/Tarrget/tarrget.ttf") format("truetype");
+  font-weight: normal;
+}

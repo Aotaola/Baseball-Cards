@@ -3,8 +3,10 @@ import tekken_card_logo from '../assets/tekken_card_logo.png';
 
 const Home = () => {
     return (
-        <div id="overlay">
-            <h1>Virtual Fighting Champions</h1>
+        <div className="overlay">
+            <h1>Virtual</h1>
+            <h1>Fighting</h1>
+            <h1>Champions</h1>
         </div>
       );
 }

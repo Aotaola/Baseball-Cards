@@ -68,6 +68,7 @@
 }
 
 .navLink-Logo {
+  font-family: "Tarrget";
   font-size: 1.8rem;
   color: #FFD700;
   text-decoration: none;
@@ -264,7 +265,7 @@ body {
 	background: radial-gradient(ellipse at center, rgba(0, 12, 103, 0.6) 0%,
   rgba(0, 0, 0, 0.642) 60%, 
   rgba(0,0,0,1) 90%), 
-  url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/31787/stars.jpg);
+  url(./assets/chains.jpg);
 	background-size: cover;
 	z-index:-5;
 	color: white;
@@ -277,7 +278,11 @@ h1 {
 	animation: neon1 2.5s ease-in-out infinite alternate;
 }
 
-#overlay {
+.overlay {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  font-family: "Tarrget";
 	position: absolute;
 	right: 0;
 	left: 0;
@@ -286,7 +291,15 @@ h1 {
 	text-align: center;
 }
 
-@keyframes neon1 {
+.overlay h1:nth-child(even) {
+  color: red;
+}
+
+.overlay h1:nth-child(odd) {
+  color: white;
+}
+
+/*@keyframes neon1 {
   from {
     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #8011ff, 0 0 70px #ff1111, 0 0 80px #8011ff, 0 0 100px #8011ff, 0 0 150px #8011ff;
   }
@@ -314,3 +327,4 @@ h1 {
 		height: 540px;
 	}
 }
+*/

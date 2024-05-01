@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 const ProfileCard = ({ user }) => {
      
-    // const url = "http://54.243.7.16/"
-    const url = 'http://127.0.0.1:5000/'
+    const url = "http://54.243.7.16/"
     useEffect(() => {
         fetch(`${url}users/user/${user['id']}`, {
             method: 'GET',

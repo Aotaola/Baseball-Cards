@@ -13,8 +13,7 @@ const LoginSignupContainer = ({ handleLoginLogout, user }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
-    // const url = "http://54.243.7.16/"
-    const url = 'http://127.0.0.1:5000/'
+    const url = "http://54.243.7.16/"
     
     // switch between login and signup
     const needsAccount = () => {

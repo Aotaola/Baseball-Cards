@@ -11,7 +11,7 @@ import './App.css';
 import CollectionView from './pages/CollectionView.jsx';
 
 function App() {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState();
 
   function handleLoginLogout(user) {
     setUser(user)

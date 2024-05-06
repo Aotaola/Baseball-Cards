@@ -1,0 +1,127 @@
+import json
+import mysql.connector
+import boto3
+from decimal import Decimal
+import logging
+
+#set up logging
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+
+def transform_card_data(row):
+    #ensures data is in the correct format for analytics
+    card_id, popularity, price, player = row
+    return {
+        'id': int(card_id),
+        'popularity': int(popularity),
+        'price': Decimal(str(round(float(price), 2))),
+        'player': str(player)
+    }
+
+def transform_user_data(cursor):
+    query = """
+    SELECT cu.user_id, cu.user_name, COUNT(r.review_id) AS total_reviews, AVG(r.rating) AS average_rating
+    FROM card_user cu
+    LEFT JOIN reviews r ON cu.user_id = r.reviewee_id
+    GROUP BY cu.user_id, cu.user_name;
+    """
+    cursor.execute(query)
+    rows = cursor.fetchall()
+    return [{
+        'id': row[0],
+        'user_name': row[1],
+        'total_reviews': int(row[2]),
+        'average_rating': Decimal(str(row[3])) if row[3] is not None else None  # Handle None case if no reviews
+    } for row in rows]
+
+def transform_collection_data(cursor):
+    query = """
+    SELECT
+        c.collection_id,
+        c.user_id,
+        cu.user_name,
+        COALESCE(SUM(ca.price), 0) AS total_price,
+        COALESCE(AVG(ca.popularity), 0) AS avg_popularity
+    FROM collection c
+    JOIN card_user cu ON c.user_id = cu.user_id
+    LEFT JOIN cards ca ON c.collection_id = ca.collection_id
+    GROUP BY c.collection_id, c.user_id, cu.user_name;
+    """
+    cursor.execute(query)
+    rows = cursor.fetchall()
+    return [{
+        'id': row[0],
+        'user_id': row[1],
+        'user_name': row[2],
+        'total_price': Decimal(str(row[3])),  # Convert to Decimal for DynamoDB compatibility
+        'avg_popularity': Decimal(str(row[4])) if row[4] is not None else None
+    } for row in rows]
+    
+    
+def validate_data(data):
+    #ensures all fields are present and valid
+    return 'id' in data and 'popularity' in data and 'price' in data and 'player' in data
+    
+def lambda_handler(event, context):
+    # TODO implement
+    
+    #dynamoDB setup
+    dynamodb  = boto3.resource('dynamodb')
+    dynamo_table = dynamodb.Table('Card_Statistics')
+    users_table = dynamodb.Table('User_Statistics')
+    collection_table = dynamodb.Table('Collection_statistics')
+    
+    #Connect to the RDS database
+    cnx = mysql.connector.connect(
+        host='baseball-card-backend-db.c98ugqo62jg6.us-east-1.rds.amazonaws.com',
+        user='admin',
+        password='password',
+        database='baseball_cards'
+    
+    )
+    
+    #will place a cards id, popularity, price into dynamodb table from rds
+    try:
+        cursor = cnx.cursor()
+        logger.info("Connected to RDS")
+        select_query = "SELECT card_id, popularity, price, player FROM cards WHERE popularity >= 90"
+        cursor.execute(select_query)
+        
+        rows = cursor.fetchall()
+        logger.info(f"Fetched {len(rows)} rows")
+        
+        for row in rows:
+            transformed_card_data = transform_card_data(row)
+            if validate_data(transformed_card_data):
+                logger.info(f"inserting: {transformed_card_data}")
+                response = dynamo_table.put_item(Item=transformed_card_data)
+                logger.info(f"DynamoDB Response: {response}")
+            else:
+                logger.error("Data validation failed")
+                
+        logger.info("Fetching user data")
+        user_data = transform_user_data(cursor)
+        for user in user_data:
+            logger.info(f"Inserting user data: {user}")
+            users_table.put_item(Item=user)
+            
+        logger.info("Fetching collection data")
+        collection_data = transform_collection_data(cursor)
+        for data in collection_data:
+            logger.info(f"Inserting collection data: {data}")
+            collection_table.put_item(Item=data)
+            
+        
+    except Exception as e:
+        #log the exception to cloudwatch
+        logger.error(f"Error processing data: {str(e)}")
+        return{'statusCode': 400, 'body': json.dumps('Error processing data')}
+        
+    finally:
+        cursor.close()
+        cnx.close()
+    
+    return {
+        'statusCode': 200,
+        'body': json.dumps('Successfully inserted players with popularity above 90')
+    }
